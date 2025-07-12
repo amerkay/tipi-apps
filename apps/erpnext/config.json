@@ -1,19 +1,34 @@
 {
-  "name": "Whoami",
-  "id": "whoami",
+  "name": "ERPNext",
   "available": true,
-  "short_desc": "Tiny Go server that prints os information and HTTP request to output.",
-  "author": "traefik",
-  "port": 8382,
-  "categories": ["utilities"],
-  "description": "Tiny Go webserver that prints OS information and HTTP request to output.",
-  "tipi_version": 2,
-  "version": "v1.11.0",
-  "source": "https://github.com/traefik/whoami",
+  "port": 8020,
   "exposable": true,
-  "supported_architectures": ["arm64", "amd64"],
-  "created_at": 1745082405284,
-  "updated_at": 1745674974072,
   "dynamic_config": true,
-  "form_fields": []
+  "id": "erpnext",
+  "description": "The world's best free and open source ERP.",
+  "tipi_version": 104,
+  "version": "15.69.2",
+  "categories": ["business", "erp"],
+  "short_desc": "Open source ERP for managing your business.",
+  "author": "Frappe Technologies",
+  "source": "https://github.com/frappe/erpnext",
+  "website": "https://erpnext.com/",
+  "form_fields": [
+    {
+      "type": "random",
+      "label": "Database root password.",
+      "min": 32,
+      "env_variable": "DB_PASSWORD"
+    },
+    {
+      "type": "random",
+      "label": "ERPNext admin password.",
+      "min": 12,
+      "env_variable": "ADMIN_PASSWORD"
+    }
+  ],
+  "supported_architectures": ["arm64", "amd64"],
+  "created_at": 1691943801422,
+  "updated_at": 1752275250930,
+  "$schema": "../app-info-schema.json"
 }
