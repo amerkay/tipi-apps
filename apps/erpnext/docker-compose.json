@@ -97,9 +97,7 @@
       "image": "frappe/erpnext:v15.69.2",
       "restart": "on-failure",
       "dependsOn": {
-        "websocket": {
-          "condition": "service_healthy"
-        }
+        "websocket": {}
       },
       "command": ["nginx-entrypoint.sh"],
       "environment": {
@@ -203,13 +201,7 @@
           "hostPath": "${APP_DATA_DIR}/logs",
           "containerPath": "/home/frappe/frappe-bench/logs"
         }
-      ],
-      "healthCheck": {
-        "test": "curl --fail http://localhost:9000",
-        "interval": "10s",
-        "timeout": "5s",
-        "retries": 5
-      }
+      ]
     }
   ],
   "$schema": "../dynamic-compose-schema.json"
