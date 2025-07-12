@@ -1,0 +1,44 @@
+{
+  "name": "ERPNext",
+  "available": true,
+  "port": 8080,
+  "exposable": true,
+  "dynamic_config": true,
+  "id": "erpnext",
+  "description": "ERPNext is the world's best free and open source ERP. It is a powerful, and versatile enterprise resource planning (ERP) solution that helps businesses of all sizes to manage their operations more efficiently.",
+  "tipi_version": 104,
+  "version": "15.69.2",
+  "categories": ["business", "erp"],
+  "short_desc": "Open Source ERP for Everyone.",
+  "author": "Frappe Technologies",
+  "source": "https://github.com/frappe/erpnext",
+  "website": "https://erpnext.com/",
+  "form_fields": [
+    {
+      "type": "random",
+      "label": "Database root password.",
+      "min": 32,
+      "env_variable": "DB_ROOT_PASSWORD"
+    },
+    {
+      "type": "random",
+      "label": "ERPNext admin user password.",
+      "min": 16,
+      "env_variable": "ADMIN_PASSWORD"
+    },
+    {
+      "type": "text",
+      "label": "Proxy Read Timeout",
+      "default": "120s",
+      "env_variable": "PROXY_READ_TIMEOUT"
+    },
+    {
+      "type": "text",
+      "label": "Client Max Body Size",
+      "default": "50m",
+      "env_variable": "CLIENT_MAX_BODY_SIZE"
+    }
+  ],
+  "supported_architectures": ["arm64", "amd64"],
+  "$schema": "../app-info-schema.json"
+}
