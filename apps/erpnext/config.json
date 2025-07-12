@@ -8,7 +8,7 @@
   "description": "The world's best free and open source ERP.",
   "tipi_version": 104,
   "version": "15.69.2",
-  "categories": ["utilities"],
+  "categories": ["data"],
   "short_desc": "Open source ERP for managing your business.",
   "author": "Frappe Technologies",
   "source": "https://github.com/frappe/erpnext",
