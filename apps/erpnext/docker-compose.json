@@ -143,10 +143,11 @@
         { "hostPath": "${APP_DATA_DIR}/logs", "containerPath": "/home/frappe/frappe-bench/logs" }
       ],
       "healthCheck": {
-        "test": "curl -f http://localhost:9000/socket.io/?EIO=4&transport=polling || exit 1",
+        "test": "[ -f /home/frappe/frappe-bench/sites/currentsite.txt ] && curl -f http://localhost:9000/$(cat /home/frappe/frappe-bench/sites/currentsite.txt)/socket.io/?EIO=4&transport=polling || exit 1",
         "interval": "30s",
         "timeout": "10s",
-        "retries": 5
+        "retries": 5,
+        "start_period": "300s"
       }
     },
     {
