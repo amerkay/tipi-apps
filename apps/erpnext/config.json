@@ -1,7 +1,7 @@
 {
   "name": "ERPNext",
   "available": true,
-  "port": 8020,
+  "port": 8080,
   "exposable": true,
   "dynamic_config": true,
   "id": "erpnext",
