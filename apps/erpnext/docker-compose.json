@@ -203,7 +203,13 @@
           "hostPath": "${APP_DATA_DIR}/logs",
           "containerPath": "/home/frappe/frappe-bench/logs"
         }
-      ]
+      ],
+      "healthCheck": {
+        "test": "curl --fail http://localhost:9000",
+        "interval": "10s",
+        "timeout": "5s",
+        "retries": 5
+      }
     }
   ],
   "$schema": "../dynamic-compose-schema.json"
