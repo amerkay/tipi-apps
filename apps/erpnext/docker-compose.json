@@ -69,8 +69,14 @@
         "SOCKETIO_PORT": "9000"
       },
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/sites", "containerPath": "/home/frappe/frappe-bench/sites" },
-        { "hostPath": "${APP_DATA_DIR}/logs", "containerPath": "/home/frappe/frappe-bench/logs" }
+        {
+          "hostPath": "${APP_DATA_DIR}/sites",
+          "containerPath": "/home/frappe/frappe-bench/sites"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/logs",
+          "containerPath": "/home/frappe/frappe-bench/logs"
+        }
       ]
     },
     {
@@ -78,8 +84,14 @@
       "image": "frappe/erpnext:v15.69.2",
       "restart": "no",
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/sites", "containerPath": "/home/frappe/frappe-bench/sites" },
-        { "hostPath": "${APP_DATA_DIR}/logs", "containerPath": "/home/frappe/frappe-bench/logs" }
+        {
+          "hostPath": "${APP_DATA_DIR}/sites",
+          "containerPath": "/home/frappe/frappe-bench/sites"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/logs",
+          "containerPath": "/home/frappe/frappe-bench/logs"
+        }
       ],
       "entrypoint": ["bash", "-c"],
       "command": "wait-for-it -t 120 db:3306; wait-for-it -t 120 redis-cache:6379; wait-for-it -t 120 redis-queue:6379; export start=`date +%s`; until [[ -n `grep -hs ^ sites/common_site_config.json | jq -r \".db_host // empty\"` ]] && [[ -n `grep -hs ^ sites/common_site_config.json | jq -r \".redis_cache // empty\"` ]] && [[ -n `grep -hs ^ sites/common_site_config.json | jq -r \".redis_queue // empty\"` ]]; do echo \"Waiting for sites/common_site_config.json to be created\"; sleep 5; if (( `date +%s`-start > 120 )); then echo \"could not find sites/common_site_config.json with required keys\"; exit 1; fi; done; echo \"sites/common_site_config.json found\"; bench new-site --mariadb-user-host-login-scope='%' --admin-password=${ADMIN_PASSWORD} --db-root-username=root --db-root-password=${DB_PASSWORD} --install-app erpnext --set-default frontend;",
@@ -93,8 +105,14 @@
       "image": "frappe/erpnext:v15.69.2",
       "restart": "on-failure",
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/sites", "containerPath": "/home/frappe/frappe-bench/sites" },
-        { "hostPath": "${APP_DATA_DIR}/logs", "containerPath": "/home/frappe/frappe-bench/logs" }
+        {
+          "hostPath": "${APP_DATA_DIR}/sites",
+          "containerPath": "/home/frappe/frappe-bench/sites"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/logs",
+          "containerPath": "/home/frappe/frappe-bench/logs"
+        }
       ],
       "environment": {
         "DB_HOST": "db",
@@ -107,47 +125,70 @@
       "name": "queue-long",
       "image": "frappe/erpnext:v15.69.2",
       "restart": "on-failure",
-      "command": [ "bench", "worker", "--queue", "long,default,short" ],
+      "command": ["bench", "worker", "--queue", "long,default,short"],
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/sites", "containerPath": "/home/frappe/frappe-bench/sites" },
-        { "hostPath": "${APP_DATA_DIR}/logs", "containerPath": "/home/frappe/frappe-bench/logs" }
+        {
+          "hostPath": "${APP_DATA_DIR}/sites",
+          "containerPath": "/home/frappe/frappe-bench/sites"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/logs",
+          "containerPath": "/home/frappe/frappe-bench/logs"
+        }
       ]
     },
     {
       "name": "queue-short",
       "image": "frappe/erpnext:v15.69.2",
       "restart": "on-failure",
-      "command": [ "bench", "worker", "--queue", "short,default" ],
+      "command": ["bench", "worker", "--queue", "short,default"],
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/sites", "containerPath": "/home/frappe/frappe-bench/sites" },
-        { "hostPath": "${APP_DATA_DIR}/logs", "containerPath": "/home/frappe/frappe-bench/logs" }
+        {
+          "hostPath": "${APP_DATA_DIR}/sites",
+          "containerPath": "/home/frappe/frappe-bench/sites"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/logs",
+          "containerPath": "/home/frappe/frappe-bench/logs"
+        }
       ]
     },
     {
       "name": "scheduler",
       "image": "frappe/erpnext:v15.69.2",
       "restart": "on-failure",
-      "command": [ "bench", "schedule" ],
+      "command": ["bench", "schedule"],
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/sites", "containerPath": "/home/frappe/frappe-bench/sites" },
-        { "hostPath": "${APP_DATA_DIR}/logs", "containerPath": "/home/frappe/frappe-bench/logs" }
+        {
+          "hostPath": "${APP_DATA_DIR}/sites",
+          "containerPath": "/home/frappe/frappe-bench/sites"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/logs",
+          "containerPath": "/home/frappe/frappe-bench/logs"
+        }
       ]
     },
     {
       "name": "websocket",
       "image": "frappe/erpnext:v15.69.2",
       "restart": "on-failure",
-      "command": [ "node", "/home/frappe/frappe-bench/apps/frappe/socketio.js" ],
+      "command": ["node", "/home/frappe/frappe-bench/apps/frappe/socketio.js"],
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/sites", "containerPath": "/home/frappe/frappe-bench/sites" },
-        { "hostPath": "${APP_DATA_DIR}/logs", "containerPath": "/home/frappe/frappe-bench/logs" }
+        {
+          "hostPath": "${APP_DATA_DIR}/sites",
+          "containerPath": "/home/frappe/frappe-bench/sites"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/logs",
+          "containerPath": "/home/frappe/frappe-bench/logs"
+        }
       ],
       "healthCheck": {
-        "test": "[ -f /home/frappe/frappe-bench/sites/currentsite.txt ] && curl -f http://localhost:9000/$(cat /home/frappe/frappe-bench/sites/currentsite.txt)/socket.io/?EIO=4&transport=polling || exit 1",
+        "test": "curl -f http://localhost:9000/socket.io/?EIO=4&transport=polling || exit 1",
         "interval": "30s",
         "timeout": "10s",
-        "retries": 5,
-        "start_period": "300s"
+        "retries": 5
       }
     },
     {
@@ -168,8 +209,14 @@
         "CLIENT_MAX_BODY_SIZE": "50m"
       },
       "volumes": [
-        { "hostPath": "${APP_DATA_DIR}/sites", "containerPath": "/home/frappe/frappe-bench/sites" },
-        { "hostPath": "${APP_DATA_DIR}/logs", "containerPath": "/home/frappe/frappe-bench/logs" }
+        {
+          "hostPath": "${APP_DATA_DIR}/sites",
+          "containerPath": "/home/frappe/frappe-bench/sites"
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/logs",
+          "containerPath": "/home/frappe/frappe-bench/logs"
+        }
       ],
       "dependsOn": {
         "websocket": { "condition": "service_healthy" }
